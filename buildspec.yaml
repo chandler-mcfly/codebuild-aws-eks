@@ -15,12 +15,12 @@ phases:
       - aws --version
       - $(aws ecr get-login --region us-west-2 --no-include-email)
       - IMAGE_NAME=tomcat-aws-eks
-      - aws ecr create-repository --repository-name $IMAGE_NAME
+      #- aws ecr create-repository --repository-name $IMAGE_NAME
       - REPOSITORY_URI=612768910590.dkr.ecr.us-west-2.amazonaws.com/$IMAGE_NAME
       - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
       - IMAGE_TAG=${COMMIT_HASH:=latest}
       - echo Logging in to Amazon EKS...
-      - aws eks update-kubeconfig --name aws-eks-terraform --region us-west-2
+      - aws eks update-kubeconfig --name aws-eks-terraform --region us-west-2 --role-arn arn:aws:iam::612768910590:role/service-role/codebuild-codebuild-project-service-role
   build:
     commands:
       - echo Build started on `date`
