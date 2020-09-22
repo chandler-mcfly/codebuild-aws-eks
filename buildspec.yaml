@@ -14,8 +14,8 @@ phases:
       - echo Logging in to Amazon ECR...
       - aws --version
       - $(aws ecr get-login --region us-west-2 --no-include-email)
-      - IMAGE_NAME=tomcat-aws-eks
-      #- aws ecr create-repository --repository-name $IMAGE_NAME
+      - IMAGE_NAME=tomcat-aws-eks-test
+      - aws ecr describe-repositories --repository-names $IMAGE_NAME || aws ecr create-repository --repository-name $IMAGE_NAME
       - REPOSITORY_URI=612768910590.dkr.ecr.us-west-2.amazonaws.com/$IMAGE_NAME
       - IMAGE_TAG=latest
       - echo Logging in to Amazon EKS...
@@ -32,9 +32,9 @@ phases:
     commands:
       - echo push completed on `date`
       # - kubectl apply -f tomcat-aws-eks.yml
-      - kubectl delete -f tomcat-aws-eks.yml
-      - sleep 150
-      - kubectl get po,svc,ing
+      #- kubectl delete -f tomcat-aws-eks.yml
+      #- sleep 150
+      #- kubectl get po,svc,ing
 
 #docker login -u AWS -p $(aws ecr get-login-password) https://$(aws sts get-caller-identity --query 'Account' --output text).dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com
 #a056e2a247a8349d58b26433b1e11fe5-1849920046.us-west-2.elb.amazonaws.com
