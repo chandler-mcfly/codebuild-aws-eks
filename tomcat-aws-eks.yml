@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: tomcat
-        image: 612768910590.dkr.ecr.us-west-2.amazonaws.com/tomcat-aws-eks:latest
+        image: 612768910590.dkr.ecr.us-west-2.amazonaws.com/tomcat-aws-eks
         ports:
         - containerPort: 8080
 ---
