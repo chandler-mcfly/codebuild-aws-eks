@@ -15,10 +15,12 @@ phases:
       - aws --version
       - $(aws ecr get-login --region us-west-2 --no-include-email)
       - IMAGE_NAME=tomcat-aws-eks
-      - aws ecr describe-repositories --repository-names $IMAGE_NAME || aws ecr create-repository --repository-name $IMAGE_NAME
+      - aws ecr create-repository --repository-name $IMAGE_NAME
       - REPOSITORY_URI=612768910590.dkr.ecr.us-west-2.amazonaws.com/$IMAGE_NAME
       - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
       - IMAGE_TAG=${COMMIT_HASH:=latest}
+      - echo Logging in to Amazon EKS...
+      - aws eks update-kubeconfig --name aws-eks-terraform --region us-west-2
   build:
     commands:
       - echo Build started on `date`
@@ -30,8 +32,6 @@ phases:
   post_build:
     commands:
       - echo push completed on `date`
-      - echo Logging in to Amazon EKS...
-      - aws eks update-kubeconfig --name aws-eks-terraform --region us-west-2
       - kubectl get svc --all-namespaces
 
 #docker login -u AWS -p $(aws ecr get-login-password) https://$(aws sts get-caller-identity --query 'Account' --output text).dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com
