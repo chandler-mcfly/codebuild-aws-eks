@@ -20,7 +20,7 @@ phases:
       - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
       - IMAGE_TAG=${COMMIT_HASH:=latest}
       - echo Logging in to Amazon EKS...
-      - aws eks update-kubeconfig --name aws-eks-terraform --region us-west-2
+      - aws eks update-kubeconfig --name aws-eks-terraform --region us-west-2 --role-arn arn:aws:iam::612768910590:role/aws-eks-terraform20200922064530638800000001
   build:
     commands:
       - echo Build started on `date`
