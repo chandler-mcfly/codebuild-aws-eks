@@ -32,7 +32,7 @@ phases:
   post_build:
     commands:
       - echo push completed on `date`
-      - kubectl apply -f *
+      - kubectl apply -f .
       - sleep 150
       - kubectl get po,svc,ing
 
