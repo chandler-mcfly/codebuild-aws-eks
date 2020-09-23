@@ -14,7 +14,7 @@ phases:
       - echo Logging in to Amazon ECR...
       - aws --version
       - $(aws ecr get-login --region us-west-2 --no-include-email)
-      - IMAGE_NAME=tomcat-aws-eks-test
+      - IMAGE_NAME=tomcat-aws-eks
       - aws ecr describe-repositories --repository-names $IMAGE_NAME || aws ecr create-repository --repository-name $IMAGE_NAME
       - REPOSITORY_URI=612768910590.dkr.ecr.us-west-2.amazonaws.com/$IMAGE_NAME
       - IMAGE_TAG=latest
