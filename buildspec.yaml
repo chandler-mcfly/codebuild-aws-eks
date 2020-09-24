@@ -31,8 +31,8 @@ phases:
   post_build:
     commands:
       - echo push completed on `date`
-      - kubectl apply -f tomcat-aws-eks.yml
-      #- kubectl delete -f tomcat-aws-eks.yml
+      #- kubectl apply -f tomcat-aws-eks.yml
+      - kubectl delete -f tomcat-aws-eks.yml
       - sleep 150
       - kubectl get po,svc,ing
 
