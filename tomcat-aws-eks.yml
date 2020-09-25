@@ -16,6 +16,7 @@ spec:
     spec:
       containers:
       - name: tomcat
+        imagePullPolicy: Always
         image: 612768910590.dkr.ecr.us-west-2.amazonaws.com/tomcat-aws-eks:latest
         ports:
         - containerPort: 8080
@@ -40,7 +41,7 @@ metadata:
     nginx.ingress.kubernetes.io/rewrite-target: /hello
 spec:
   rules:
-  - host: a8d0fb06c05a641f1b73d6cb0ae8c1f4-14752434.us-west-2.elb.amazonaws.com
+  - host: a7926fc45c5994ea3b5c5cfc412ead33-265223223.us-west-2.elb.amazonaws.com
     http:
       paths:
       - path: /hello
